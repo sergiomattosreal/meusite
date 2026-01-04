@@ -3,64 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Sérgio Mattos | Medicina & Performance</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>Dr. Sérgio Mattos | Medicina e Alta Performance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+        /* --- VARIÁVEIS DE CORES (Baseadas na sua marca) --- */
+        :root {
+            --bg-dark: #121212;     /* Fundo principal quase preto */
+            --bg-card: #1e1e1e;     /* Fundo dos cards um pouco mais claro */
+            --accent-gold: #c5a35e; /* O dourado da sua logo */
+            --accent-gold-hover: #d4b472; /* Dourado mais claro para hover */
+            --text-light: #f4f4f4;  /* Texto principal */
+            --text-gray: #a8a8a8;   /* Texto secundário */
+        }
+
+        /* --- RESET E BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+        a { text-decoration: none; transition: 0.3s ease; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            border: 2px solid var(--accent-gold);
+            cursor: pointer;
+        }
+        .btn:hover { background-color: var(--accent-gold-hover); border-color: var(--accent-gold-hover); }
+        .btn-outline { background-color: transparent; color: var(--accent-gold); }
+        .btn-outline:hover { background-color: var(--accent-gold); color: var(--bg-dark); }
+        .gold-text { color: var(--accent-gold); }
+
+        /* --- HEADER / NAVBAR --- */
+        header {
+            background-color: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(197, 163, 94, 0.2);
+        }
+        .nav-container { display: flex; justify-content: space-between; items-align: center; }
+        .logo img { height: 60px; width: auto; } /* Ajuste da logo isolada */
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: var(--text-light); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; }
+        .nav-links a:hover { color: var(--accent-gold); }
+
+        /* --- HERO SECTION (Sua Vitrine Principal) --- */
+        .hero {
+            padding: 160px 0 100px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            /* Gradiente sutil de fundo */
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a1a 100%);
+            position: relative;
+        }
+        /* Elemento decorativo de fundo */
+        .hero::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+            background: radial-gradient(circle at center, rgba(197, 163, 94, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .hero-text h1 {
+            font-size: 3.5rem; line-height: 1.2; margin-bottom: 20px;
+        }
+        .hero-text p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 40px; max-width: 500px; }
+        .hero-image { position: relative; }
+        /* Estilização da sua foto */
+        .hero-image img {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 12px;
+            /* Uma borda sutil dourada e uma sombra para destacar do fundo escuro */
+            border: 3px solid rgba(197, 163, 94, 0.3);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+        }
+
+        /* --- BARRA DE CREDIBILIDADE --- */
+        .trust-bar {
+            background-color: var(--bg-card); padding: 40px 0;
+            border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .trust-grid { display: flex; justify-content: space-around; text-align: center; flex-wrap: wrap; gap: 20px; }
+        .trust-item h4 { font-size: 2rem; color: var(--accent-gold); margin-bottom: 5px; }
+        .trust-item p { text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; color: var(--text-gray); }
+
+        /* --- PRODUTOS (Infoprodutos do Taplink) --- */
+        .products-section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 15px; }
+        .section-header p { color: var(--text-gray); max-width: 600px; margin: 0 auto; }
+        
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .product-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex; flex-direction: column;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+        }
+        /* Placeholder para imagem do produto se tiver, senão um gradiente */
+        .product-img-header {
+            height: 200px; background: linear-gradient(45deg, #2a2a2a, #3a3a3a);
+            display: flex; align-items: center; justify-content: center; color: var(--accent-gold); opacity: 0.8;
+        }
+        .product-body { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
+        .product-body h3 { font-size: 1.5rem; margin-bottom: 15px; }
+        .product-body p { color: var(--text-gray); margin-bottom: 25px; flex-grow: 1; }
+        .product-price { font-size: 1.8rem; font-weight: 700; color: var(--text-light); margin-bottom: 20px; display: block; }
+        .product-card .btn { width: 100%; text-align: center; }
+
+        /* --- FOOTER --- */
+        footer { background-color: #0a0a0a; padding: 80px 0 30px; text-align: center; }
+        footer .footer-logo { height: 80px; margin-bottom: 30px; opacity: 0.8; }
+        .social-links { margin-bottom: 40px; }
+        .social-links a { margin: 0 15px; color: var(--text-gray); font-size: 1.2rem; }
+        .social-links a:hover { color: var(--accent-gold); }
+        .copyright { color: rgba(255,255,255,0.3); font-size: 0.9rem; }
+
+        /* --- RESPONSIVIDADE (Mobile) --- */
+        @media (max-width: 968px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .hero-text p { margin: 0 auto 40px; }
+            .hero-image { order: -1; margin-bottom: 50px; }
+            .hero-image img { max-width: 350px; }
+            .nav-links { display: none; } /* Simplificação para mobile */
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body>
 
-    <header class="gradient-bg text-white py-16 px-6 text-center">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">Saúde com Embasamento, Performance com Segurança.</h1>
-            <p class="text-xl text-slate-300 mb-8">A união da Medicina e do Treinamento Físico para transformar seu estilo de vida.</p>
-            <a href="#produtos" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-bold transition">Começar Transformação</a>
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="image_1.png" alt="Logo SM Sérgio Mattos">
+            </a>
+            <nav class="nav-links">
+                <a href="#protocolos">Protocolos</a>
+                <a href="#sobre">Sobre Mim</a>
+                <a href="#protocolos" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.8rem;">Começar Agora</a>
+            </nav>
         </div>
     </header>
 
-    <section class="py-10 bg-white shadow-sm">
-        <div class="max-w-5xl mx-auto flex justify-around text-center">
-            <div><p class="text-3xl font-bold text-blue-600">+100</p><p class="text-sm text-slate-500">Vidas Impactadas</p></div>
-            <div><p class="text-3xl font-bold text-blue-600">MD</p><p class="text-sm text-slate-500 text-uppercase">Médico Graduado</p></div>
-            <div><p class="text-3xl font-bold text-blue-600">PT</p><p class="text-sm text-slate-500">Personal Trainer</p></div>
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h4>MÉDICO & PERSONAL TRAINER</h4>
+                <h1>Domine sua <span class="gold-text">Saúde</span> e potencialize seu <span class="gold-text">Shape</span>.</h1>
+                <p>Protocolos definitivos que unem a ciência médica à prática do treinamento físico para resultados estéticos e de saúde duradouros.</p>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <a href="#protocolos" class="btn">Ver Protocolos</a>
+                    <a href="https://wa.me/SEUNUMERO" class="btn btn-outline">Falar com a Equipe</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="image_2.png" alt="Dr. Sérgio Mattos">
+            </div>
         </div>
     </section>
 
-    <section id="produtos" class="py-20 px-6 max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Meus Protocolos e Treinamentos</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 flex flex-col">
-                <h3 class="text-xl font-bold mb-2">Consultoria Online</h3>
-                <p class="text-slate-600 mb-6 flex-grow">Prescrição individualizada unindo ciência médica e periodização de treino.</p>
-                <a href="https://taplink.cc/sergiomattos" class="block text-center bg-slate-900 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition">Saber Mais</a>
+    <section class="trust-bar">
+        <div class="container trust-grid">
+            <div class="trust-item">
+                <h4>MD + PT</h4>
+                <p>Visão Médica e Esportiva Integrada</p>
             </div>
-            
+            <div class="trust-item">
+                <h4>Ciência</h4>
+                <p>Métodos Validados e Seguros</p>
             </div>
+             <div class="trust-item">
+                <h4>Premium</h4>
+                <p>Atendimento e Suporte Diferenciado</p>
+            </div>
+        </div>
     </section>
 
-    <section class="bg-slate-100 py-20 px-6">
-        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10">
-            <div class="w-48 h-48 bg-slate-300 rounded-full overflow-hidden shadow-xl">
-                <img src="https://via.placeholder.com/200" alt="Sérgio Mattos">
+    <section id="protocolos" class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Protocolos e <span class="gold-text">Consultorias</span></h2>
+                <p>Escolha o nível de acompanhamento ideal para o seu objetivo atual. Soluções desenhadas para destravar seus resultados.</p>
             </div>
-            <div>
-                <h2 class="text-3xl font-bold mb-4">Sérgio Mattos</h2>
-                <p class="text-lg text-slate-700 leading-relaxed">
-                    Médico formado pela UPAP e Personal Trainer. Minha missão é traduzir a complexidade da medicina em protocolos práticos de treino e saúde para quem busca longevidade e estética sem abrir mão do bem-estar.
-                </p>
-                <div class="mt-6 flex gap-4">
-                    <a href="https://instagram.com/sergiomattosreal" class="text-blue-600 font-bold">Instagram</a>
-                    <a href="https://linkedin.com/in/sergiomattosreal" class="text-blue-600 font-bold">LinkedIn</a>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-img-header">
+                        <span style="font-size: 3rem;">💎</span>
+                    </div>
+                    <div class="product-body">
+                        <h3>Consultoria 1-on-1 Premium</h3>
+                        <p>Acompanhamento individualizado. Análise de exames, periodização de treino e estratégias médicas para sua máxima performance.</p>
+                        <span class="product-price">R$ 997 <small style="font-size: 1rem; font-weight: 400;">/mês</small></span>
+                        <a href="LINK_DO_SEU_CHECKOUT_AQUI" class="btn">Aplicar para Vaga</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img-header">
+                        <span style="font-size: 3rem;">🔥</span>
+                    </div>
+                    <div class="product-body">
+                        <h3>Protocolo Metabólico (Emagrecimento)</h3>
+                        <p>O guia definitivo para acelerar seu metabolismo de forma saudável, unindo nutrição estratégica e treinos eficientes.</p>
+                        <span class="product-price">R$ 197,00</span>
+                        <a href="LINK_DO_SEU_CHECKOUT_AQUI" class="btn">Acessar Protocolo</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                     <div class="product-img-header">
+                        <span style="font-size: 3rem;">💊</span>
+                    </div>
+                    <div class="product-body">
+                        <h3>Guia Médico de Suplementação</h3>
+                        <p>Pare de gastar dinheiro à toa. Saiba exatamente o que funciona, dosagens seguras e o que é apenas marketing.</p>
+                        <span class="product-price">R$ 47,00</span>
+                        <a href="LINK_DO_SEU_CHECKOUT_AQUI" class="btn">Baixar Guia</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-10 text-center text-slate-400 text-sm">
-        &copy; 2026 Sérgio Mattos | Foz do Iguaçu, PR.
+    <footer>
+        <div class="container">
+            <img src="image_0.png" alt="Sérgio Mattos" class="footer-logo" style="height: auto; width: 200px;">
+            
+            <div class="social-links">
+                <a href="https://instagram.com/sergiomattosreal" target="_blank">Instagram</a>
+                <a href="https://linkedin.com/in/sergiomattosreal" target="_blank">LinkedIn</a>
+            </div>
+            <p class="copyright">© 2024 Dr. Sérgio Mattos. Todos os direitos reservados.<br>Aviso Legal: Os resultados podem variar. Este site não substitui aconselhamento médico presencial.</p>
+        </div>
     </footer>
 
 </body>
